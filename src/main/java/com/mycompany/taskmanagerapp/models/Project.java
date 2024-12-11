@@ -5,6 +5,8 @@
 
 package com.mycompany.taskmanagerapp.models;
 
+import java.util.List;
+
 /**
  * @author Daniel García
  * 04/12/2024
@@ -12,11 +14,17 @@ package com.mycompany.taskmanagerapp.models;
 public class Project {
     private int id;
     private String name, description;
+    private List<Task> listTasks;
+    
+    public Project(){
+        
+    }
 
-    public Project(int id, String name, String description) {
+    public Project(int id, String name, String description, List<Task> tasks) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.listTasks = tasks;
     }
 
     public int getId() {
@@ -31,6 +39,10 @@ public class Project {
         return description;
     }
 
+    public List<Task> getListTasks() {
+        return listTasks;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -43,10 +55,13 @@ public class Project {
         this.description = description;
     }
 
+    public void setListTasks(List<Task> listTasks) {
+        this.listTasks = listTasks;
+    }
+
     @Override
     public String toString() {
         return "Project: \n" + "Id: " + id + "\nName: " + name + "\nDescription: " + description;
     }
-    
     
 }
