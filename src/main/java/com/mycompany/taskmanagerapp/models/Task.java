@@ -12,6 +12,10 @@ package com.mycompany.taskmanagerapp.models;
 public class Task {
     private int id;
     private String name, description, status; //Status options are Pending, In Progress and Completed
+    
+    public Task(){
+        
+    }
 
     public Task(int id, String name, String description) {
         this.id = id;

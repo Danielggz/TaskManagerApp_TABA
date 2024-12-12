@@ -19,25 +19,29 @@ public class TaskService {
     private List<Task> taskList = db.getTasks();
     private List<Project> projectList = db.getProjects();
     
+    public TaskService(){
+        
+    }
+    
     public List<Task> createTask(Task newT, int projId){
         taskList.add(newT);
-        projectList.get(projId).addTask(newT);
-        return projectList.get(projId).getListTasks();
+        projectList.get(projId-1).addTask(newT);
+        return projectList.get(projId-1).getListTasks();
     }
     
     public List<Task> getAllTasks(int projId){
-        return projectList.get(projId).getListTasks();
+        return projectList.get(projId-1).getListTasks();
     }
     
     public Task getTask(int projId, int idTask){
-        return projectList.get(projId).getListTasks().get(idTask-1);
+        return projectList.get(projId-1).getListTasks().get(idTask-1);
     }
     
     public Task updateTask(int projId, Task t){
-        return projectList.get(projId).getListTasks().set(t.getId()-1, t);
+        return projectList.get(projId-1).getListTasks().set(t.getId()-1, t);
     }
     
     public Task deleteTask(int projId, int idTask){
-        return projectList.get(projId).getListTasks().remove(idTask-1);
+        return projectList.get(projId-1).getListTasks().remove(idTask-1);
     }
 }

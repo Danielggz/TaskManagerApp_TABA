@@ -77,7 +77,7 @@ public class TaskResource {
     @GET
     @Path("/deleteTask/{taskId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Task deleteTask(@PathParam("projectId") int projId, @PathParam("projectId") int taskId){
+    public Task deleteTask(@PathParam("projectId") int projId, @PathParam("taskId") int taskId){
         return taskService.deleteTask(projId, taskId);
     }
 }
