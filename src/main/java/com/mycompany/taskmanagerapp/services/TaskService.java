@@ -6,6 +6,7 @@
 package com.mycompany.taskmanagerapp.services;
 
 import com.mycompany.taskmanagerapp.databases.Database;
+import com.mycompany.taskmanagerapp.models.Project;
 import com.mycompany.taskmanagerapp.models.Task;
 import java.util.List;
 
@@ -16,25 +17,27 @@ import java.util.List;
 public class TaskService {
     Database db = new Database();
     private List<Task> taskList = db.getTasks();
+    private List<Project> projectList = db.getProjects();
     
-    public Task createTask(Task newT){
+    public List<Task> createTask(Task newT, int projId){
         taskList.add(newT);
-        return newT;
+        projectList.get(projId).addTask(newT);
+        return projectList.get(projId).getListTasks();
     }
     
-    public List<Task> getAllTasks(){
-        return taskList;
+    public List<Task> getAllTasks(int projId){
+        return projectList.get(projId).getListTasks();
     }
     
-    public Task getTask(int idTask){
-        return taskList.get(idTask);
+    public Task getTask(int projId, int idTask){
+        return projectList.get(projId).getListTasks().get(idTask-1);
     }
     
-    public Task updateTask(Task t){
-        return taskList.set(t.getId(), t);
+    public Task updateTask(int projId, Task t){
+        return projectList.get(projId).getListTasks().set(t.getId()-1, t);
     }
     
-    public Task deleteTask(int idTask){
-        return taskList.remove(idTask);
+    public Task deleteTask(int projId, int idTask){
+        return projectList.get(projId).getListTasks().remove(idTask-1);
     }
 }

@@ -7,6 +7,7 @@ package com.mycompany.taskmanagerapp.services;
 
 import com.mycompany.taskmanagerapp.databases.Database;
 import com.mycompany.taskmanagerapp.models.Project;
+import com.mycompany.taskmanagerapp.models.Task;
 import java.util.List;
 
 /**
@@ -27,14 +28,20 @@ public class ProjectService {
     }
     
     public Project getProject(int idProj){
-        return projList.get(idProj);
+        return projList.get(idProj-1);
     }
     
     public Project updateProject(Project p){
-        return projList.set(p.getId(), p);
+        return projList.set(p.getId()-1, p);
     }
     
     public Project deleteProject(int idProj){
-        return projList.remove(idProj);
+        return projList.remove(idProj-1);
+    }
+    
+    public Project assignTasks(int projId, List<Task> taskList){
+        //Assign list and return the project
+        projList.get(projId).setListTasks(taskList);
+        return projList.get(projId);
     }
 }

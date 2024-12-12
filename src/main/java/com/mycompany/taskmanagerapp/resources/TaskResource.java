@@ -5,16 +5,12 @@
 package com.mycompany.taskmanagerapp.resources;
 
 import com.mycompany.taskmanagerapp.models.Task;
-import com.mycompany.taskmanagerapp.models.Task;
 import com.mycompany.taskmanagerapp.services.TaskService;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PUT;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
@@ -26,62 +22,62 @@ import java.util.List;
  * @author Daniel García
  */
 @Path("tasks")
-@RequestScoped
 public class TaskResource {
     
     TaskService taskService = new TaskService();
-    /**
-     * Creates a new instance of TasksResource
-     */
-    public TaskResource() {
-    }
-
+    
     //Create task
     @POST
     @Path("/newTask")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Task createTask(Task projPost) {
-        return taskService.createTask(projPost);
+    public List<Task> createTask(Task projPost, @PathParam("projectId") int projId) {
+        return taskService.createTask(projPost, projId);
     }
+    
     //Retrieve all tasks (XML)
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public List<Task> getTasksXML() {
-        return taskService.getAllTasks();
+    public List<Task> getTasksXML(@PathParam("projectId") int projId) {
+        return taskService.getAllTasks(projId);
     }
+    
     //Retrieve all tasks (JSON)
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Task> getTasksJSON() {
-        return taskService.getAllTasks();
+    public List<Task> getTasksJSON(@PathParam("projectId") int projId) {
+        return taskService.getAllTasks(projId);
     }
+    
     //Retrieve task (XML)
     @GET
-    @Path("/{projectId}")
+    @Path("/{taskId}")
     @Produces(MediaType.APPLICATION_XML)
-    public Task getTaskXML(@PathParam("projId") int projId) {
-        return taskService.getTask(projId);
+    public Task getTaskXML(@PathParam("projectId") int projId, @PathParam("taskId") int taskId) {
+        return taskService.getTask(projId,taskId);
     }
+    
     //Retrieve task (JSON)
     @GET
-    @Path("/{projectId}")
+    @Path("/{taskId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Task getTaskJSON(@PathParam("projId") int projId) {
-        return taskService.getTask(projId);
+    public Task getTaskJSON(@PathParam("projectId") int projId, @PathParam("taskId") int taskId) {
+        return taskService.getTask(projId,taskId);
     }
+    
     //Update task
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/updateProj/{projectId}")
-    public Task updateTask(Task updtProj) {
-	return taskService.updateTask(updtProj);
+    @Path("/updateProj")
+    public Task updateTask(@PathParam("projectId") int projId, Task updtTask) {
+	return taskService.updateTask(projId, updtTask);
     }
+    
     //Delete task
     @GET
-    @Path("/deleteProj/{projectId}")
+    @Path("/deleteTask/{taskId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Task deleteTask(int idProj){
-        return taskService.deleteTask(idProj);
+    public Task deleteTask(@PathParam("projectId") int projId, @PathParam("projectId") int taskId){
+        return taskService.deleteTask(projId, taskId);
     }
 }

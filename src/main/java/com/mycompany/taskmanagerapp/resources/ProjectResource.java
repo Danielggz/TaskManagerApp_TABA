@@ -5,15 +5,14 @@
 package com.mycompany.taskmanagerapp.resources;
 
 import com.mycompany.taskmanagerapp.models.Project;
+import com.mycompany.taskmanagerapp.models.Task;
 import com.mycompany.taskmanagerapp.services.ProjectService;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PUT;
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
@@ -24,14 +23,10 @@ import java.util.List;
  *
  * @author Daniel García
  */
-@Path("generic")
-@RequestScoped
+@Path("/projects")
 public class ProjectResource {
     
     ProjectService projectService = new ProjectService();
-    
-    public ProjectResource() {
-    }
     
     //Create project
     @POST
@@ -60,37 +55,46 @@ public class ProjectResource {
     @GET
     @Path("/{projectId}")
     @Produces(MediaType.APPLICATION_XML)
-    public Project getProjectXML(@PathParam("projId") int projId) {
-        return projectService.getProject(projId);
+    public Project getProjectXML(@PathParam("projectId") int projectId) {
+        return projectService.getProject(projectId);
     }
     
     //Retrieve a project by id (JSON)
     @GET
     @Path("/{projectId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Project getProjectJSON(@PathParam("projId") int projId) {
-        return projectService.getProject(projId);
+    public Project getProjectJSON(@PathParam("projectId") int projectId) {
+        return projectService.getProject(projectId);
     }
     
     //Update project
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/updateProj/{projectId}")
+    @Path("/updateProj")
     public Project updateProject(Project updtProj) {
+        System.out.println(updtProj);
 	return projectService.updateProject(updtProj);
     }
     
     //Delete project
-    @GET
+    @DELETE
     @Path("/deleteProj/{projectId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Project deleteProject(int idProj){
-        return projectService.deleteProject(idProj);
+    public Project deleteProject(@PathParam("projectId") int projectId){
+        return projectService.deleteProject(projectId);
+    }
+    
+    //Assign tasks to a project
+    @POST
+    @Path("/assignTasks/{projectId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Project assignTasks(@PathParam("projectId") int projId, List<Task> listofTasks) {
+        return projectService.assignTasks(projId, listofTasks);
     }
     
     @Path("/{projectId}/tasks")
     public TaskResource getCommentsResource() {
-	System.out.println("Getting comments subresoruces...");
 	return new TaskResource();
     }
     

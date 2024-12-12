@@ -20,11 +20,10 @@ public class Project {
         
     }
 
-    public Project(int id, String name, String description, List<Task> tasks) {
+    public Project(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.listTasks = tasks;
     }
 
     public int getId() {
@@ -57,6 +56,10 @@ public class Project {
 
     public void setListTasks(List<Task> listTasks) {
         this.listTasks = listTasks;
+    }
+    
+    public void addTask(Task newT){
+        this.listTasks.add(newT);
     }
 
     @Override
