@@ -23,6 +23,13 @@ public class Task {
         this.description = description;
         this.status = "Pending"; //Status of task always start as pending
     }
+    
+    public Task(int id, String name, String description, String status) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.status = status;
+    }
 
     public int getId() {
         return id;

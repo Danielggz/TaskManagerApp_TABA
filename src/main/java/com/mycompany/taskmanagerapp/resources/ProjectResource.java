@@ -93,8 +93,9 @@ public class ProjectResource {
         return projectService.assignTasks(projId, listofTasks);
     }
     
+    //Get tasks resource
     @Path("/{projectId}/tasks")
-    public TaskResource getCommentsResource() {
+    public TaskResource getTasksByProjectResource() {
 	return new TaskResource();
     }
     

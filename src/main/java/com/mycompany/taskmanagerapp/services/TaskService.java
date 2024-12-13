@@ -8,6 +8,7 @@ package com.mycompany.taskmanagerapp.services;
 import com.mycompany.taskmanagerapp.databases.Database;
 import com.mycompany.taskmanagerapp.models.Project;
 import com.mycompany.taskmanagerapp.models.Task;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +36,20 @@ public class TaskService {
     
     public Task getTask(int projId, int idTask){
         return projectList.get(projId-1).getListTasks().get(idTask-1);
+    }
+    
+    public List<Task> getTaskByStatus(String status){
+        //Create list with tasks that have the status requested
+        List<Task> tasksByStatus = new ArrayList<>();
+        for(Project p: projectList){
+            if(p.getListTasks() != null){
+                for(Task t: p.getListTasks()){
+                    if(t.getStatus().equals(status))
+                    tasksByStatus.add(t);
+                }
+            }
+        }
+        return tasksByStatus;
     }
     
     public Task updateTask(int projId, Task t){
