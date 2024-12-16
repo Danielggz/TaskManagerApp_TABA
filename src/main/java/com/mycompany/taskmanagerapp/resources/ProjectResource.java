@@ -97,8 +97,8 @@ public class ProjectResource {
     @GET
     @Path("/tasksByStatus/{taskStatus}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Task> getTaskByStatus(@PathParam("taskStatus") String taskStatus) {
-        return projectService.getTasksByStatus(taskStatus);
+    public List<Task> getAllTasksByStatus(@PathParam("taskStatus") String taskStatus) {
+        return projectService.getAllTasksByStatus(taskStatus);
     }
     
     //Get tasks resource

@@ -46,7 +46,7 @@ public class ProjectService {
         return projList.get(projId);
     }
     
-    public List<Task> getTasksByStatus(String status){
+    public List<Task> getAllTasksByStatus(String status){
         //Create list with tasks that have the status requested
         List<Task> tasksByStatus = new ArrayList<>();
         for(Project p: projList){

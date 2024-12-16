@@ -38,6 +38,18 @@ public class TaskService {
         return projectList.get(projId-1).getListTasks().get(idTask-1);
     }
     
+    public List<Task> getTaskByStatus(int projId, String status){
+        //Create list with tasks that have the status requested
+        List<Task> tasksByStatus = new ArrayList<>();
+        if(projectList.get(projId-1).getListTasks() != null){
+            for(Task t: projectList.get(projId-1).getListTasks()){
+                if(t.getStatus().equals(status))
+                tasksByStatus.add(t);
+            }
+        }
+        return tasksByStatus;
+    }
+    
     public Task updateTask(int projId, Task t){
         return projectList.get(projId-1).getListTasks().set(t.getId()-1, t);
     }
