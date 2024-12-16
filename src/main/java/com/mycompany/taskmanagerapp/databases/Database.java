@@ -25,13 +25,13 @@ public class Database {
             Project p3 = new Project(3, "Advanced Networks", "Packet tracer network simulated");
             //Create comments for message 3
             ArrayList<Task> p1Tasks = new ArrayList<>();
-            p1Tasks.add(new Task(1, "Create project", "Create the project with Java Maven. Add structure files(models, database, resources and services)"));
-            p1Tasks.add(new Task(2, "Add functionality", "Add functionality to the files"));
+            p1Tasks.add(new Task(1, "Create project", "Create the project with Java Maven. Add structure files(models, database, resources and services)", "Completed"));
+            p1Tasks.add(new Task(2, "Add functionality", "Add functionality to the files", "In Progress"));
             p1Tasks.add(new Task(3, "Test", "Test the functionality with postman"));
             p1.setListTasks(p1Tasks);
             ArrayList<Task> p2Tasks = new ArrayList<>();
-            p2Tasks.add(new Task(1, "Datasets", "Find online datasets suitable for Linear Regression"));
-            p2Tasks.add(new Task(2, "Create file", "Create python file and add functions and plots"));
+            p2Tasks.add(new Task(1, "Datasets", "Find online datasets suitable for Linear Regression", "Completed"));
+            p2Tasks.add(new Task(2, "Create file", "Create python file and add functions and plots", "In Progress"));
             p2.setListTasks(p2Tasks);
 
             projects.add(p1);

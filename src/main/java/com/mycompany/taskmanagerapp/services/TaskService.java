@@ -38,22 +38,15 @@ public class TaskService {
         return projectList.get(projId-1).getListTasks().get(idTask-1);
     }
     
-    public List<Task> getTaskByStatus(String status){
-        //Create list with tasks that have the status requested
-        List<Task> tasksByStatus = new ArrayList<>();
-        for(Project p: projectList){
-            if(p.getListTasks() != null){
-                for(Task t: p.getListTasks()){
-                    if(t.getStatus().equals(status))
-                    tasksByStatus.add(t);
-                }
-            }
-        }
-        return tasksByStatus;
-    }
-    
     public Task updateTask(int projId, Task t){
         return projectList.get(projId-1).getListTasks().set(t.getId()-1, t);
+    }
+    
+    public Task updateStatus(int projId, int taskId, String status){
+        //Change status of specified task
+        System.out.println("NEW STATUS: " + status);
+        projectList.get(projId-1).getListTasks().get(taskId).setStatus(status);
+        return projectList.get(projId-1).getListTasks().get(taskId);
     }
     
     public Task deleteTask(int projId, int idTask){

@@ -65,20 +65,20 @@ public class TaskResource {
         return taskService.getTask(projId,taskId);
     }
     
-    //Retrieve task by Status
-    @GET
-    @Path("/tasksByStatus/{taskStatus}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Task> getTaskByStatus(@PathParam("taskStatus") String taskStatus) {
-        return taskService.getTaskByStatus(taskStatus);
-    }
-    
     //Update task
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/updateTask")
     public Task updateTask(@PathParam("projectId") int projId, Task updtTask) {
 	return taskService.updateTask(projId, updtTask);
+    }
+    
+    //Update status of a task
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/updateTaskStatus/{taskId}/{newStatus}")
+    public Task updateTaskStatus(@PathParam("projectId") int projId, @PathParam("taskId") int taskId, @PathParam("newStatus") String newStatus) {
+	return taskService.updateStatus(projId, taskId, newStatus);
     }
     
     //Delete task

@@ -93,6 +93,14 @@ public class ProjectResource {
         return projectService.assignTasks(projId, listofTasks);
     }
     
+    //Retrieve all tasks by status
+    @GET
+    @Path("/tasksByStatus/{taskStatus}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Task> getTaskByStatus(@PathParam("taskStatus") String taskStatus) {
+        return projectService.getTasksByStatus(taskStatus);
+    }
+    
     //Get tasks resource
     @Path("/{projectId}/tasks")
     public TaskResource getTasksByProjectResource() {
