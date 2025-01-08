@@ -29,18 +29,49 @@ public class ProjectService {
     }
     
     public Project getProject(int idProj){
-        return projList.get(idProj-1);
+        Project p = null;
+        try{
+            p = projList.get(idProj-1);
+        }catch(IndexOutOfBoundsException iob){
+            System.out.println(iob.getMessage());
+            return null;
+        }
+        return p;
     }
     
-    public Project updateProject(Project p){
-        return projList.set(p.getId()-1, p);
+    public Project updateProject(Project proj){
+        Project p = null;
+        try{
+            //Check if project exists
+            p = projList.get(proj.getId()-1);
+        }catch(IndexOutOfBoundsException iob){
+            System.out.println(iob.getMessage());
+            return null;
+        }
+        return projList.set(proj.getId()-1, p);
     }
     
     public Project deleteProject(int idProj){
+        Project p = null;
+        try{
+            //Check if project exists
+            p = projList.get(idProj-1);
+        }catch(IndexOutOfBoundsException iob){
+            System.out.println(iob.getMessage());
+            return null;
+        }
         return projList.remove(idProj-1);
     }
     
     public Project assignTasks(int projId, List<Task> taskList){
+        Project p = null;
+        try{
+            //Check if project exists
+            p = projList.get(projId-1);
+        }catch(IndexOutOfBoundsException iob){
+            System.out.println(iob.getMessage());
+            return null;
+        }
         //Assign list and return the project
         projList.get(projId).setListTasks(taskList);
         return projList.get(projId);

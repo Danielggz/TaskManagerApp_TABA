@@ -24,24 +24,52 @@ public class TaskService {
         
     }
     
-    public List<Task> createTask(Task newT, int projId){
+    public Task createTask(Task newT, int projId){
+        Project p = null;
+        try{
+           p = projectList.get(projId-1);
+        }catch(IndexOutOfBoundsException iob){
+            System.out.println(iob.getMessage());
+            return null;
+        }
         taskList.add(newT);
-        projectList.get(projId-1).addTask(newT);
-        return projectList.get(projId-1).getListTasks();
+        p.addTask(newT);
+        return newT;
     }
     
     public List<Task> getAllTasks(int projId){
-        return projectList.get(projId-1).getListTasks();
+        List<Task> listT = null;
+        try{
+           listT = projectList.get(projId-1).getListTasks();
+        }catch(IndexOutOfBoundsException iob){
+            System.out.println(iob.getMessage());
+            return null;
+        }
+        return listT;
     }
     
     public Task getTask(int projId, int idTask){
-        return projectList.get(projId-1).getListTasks().get(idTask-1);
+        Task t = null;
+        try{
+           t = projectList.get(projId-1).getListTasks().get(idTask-1);
+        }catch(IndexOutOfBoundsException iob){
+            System.out.println(iob.getMessage());
+            return null;
+        }
+        return t;
     }
     
     public List<Task> getTaskByStatus(int projId, String status){
+        List<Task> listT = null;
+        try{
+           listT = projectList.get(projId-1).getListTasks();
+        }catch(IndexOutOfBoundsException iob){
+            System.out.println(iob.getMessage());
+            return null;
+        }
         //Create list with tasks that have the status requested
         List<Task> tasksByStatus = new ArrayList<>();
-        if(projectList.get(projId-1).getListTasks() != null){
+        if(listT != null){
             for(Task t: projectList.get(projId-1).getListTasks()){
                 if(t.getStatus().equals(status))
                 tasksByStatus.add(t);
@@ -51,17 +79,37 @@ public class TaskService {
     }
     
     public Task updateTask(int projId, Task t){
-        return projectList.get(projId-1).getListTasks().set(t.getId()-1, t);
+        Project p = null;
+        try{
+           p = projectList.get(projId-1);
+        }catch(IndexOutOfBoundsException iob){
+            System.out.println(iob.getMessage());
+            return null;
+        }
+        return p.getListTasks().set(t.getId()-1, t);
     }
     
     public Task updateStatus(int projId, int taskId, String status){
+        Task t = null;
+        try{
+           t = projectList.get(projId-1).getListTasks().get(taskId-1);
+        }catch(IndexOutOfBoundsException iob){
+            System.out.println(iob.getMessage());
+            return null;
+        }
         //Change status of specified task
-        System.out.println("NEW STATUS: " + status);
-        projectList.get(projId-1).getListTasks().get(taskId).setStatus(status);
-        return projectList.get(projId-1).getListTasks().get(taskId);
+        projectList.get(projId-1).getListTasks().get(taskId-1).setStatus(status);
+        return t;
     }
     
     public Task deleteTask(int projId, int idTask){
-        return projectList.get(projId-1).getListTasks().remove(idTask-1);
+        Task t = null;
+        try{
+           t = projectList.get(projId-1).getListTasks().remove(idTask-1);
+        }catch(IndexOutOfBoundsException iob){
+            System.out.println(iob.getMessage());
+            return null;
+        }
+        return t;
     }
 }
